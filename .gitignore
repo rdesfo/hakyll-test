@@ -1,0 +1,6 @@
+
+# hakyll generated files
+_*
+
+# stack
+.stack-work
