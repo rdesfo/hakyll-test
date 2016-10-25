@@ -1,23 +1,23 @@
 machine:
-  ghc:
-    version: 7.10.4
+  services:
+    - docker
 
 dependencies:
   override:
-    - cabal update
-    - cabal sandbox init
-    - cabal install --only-dependencies -j
-    - cabal configure
+    - docker pull rdesfo/hakyll
 
 test:
   override:
-    - cabal build
+    - docker run -d --name hakyll -i rdesfo/hakyll bash
+    - docker cp . hakyll:/home/user/app/
+    - docker exec -u root hakyll chown -R user:user /home/user/app
+    - docker exec -u user hakyll sh -c "cd /home/user/app; stack build; stack exec -- site build"
 
   post:
     - git submodule init
     - git submodule update
     - cd _site/ && git checkout gh-pages
-    - cabal run build
+    - docker cp hakyll:/home/user/app/_site
 
 deployment:
   production:
