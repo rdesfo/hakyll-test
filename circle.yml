@@ -1,14 +1,14 @@
 machine:
-  pwd: hakyll-test
   services:
     - docker
+  general:
+    build_dir: hakyll-test
 
 dependencies:
   override:
     - docker pull rdesfo/hakyll
 
 test:
-  build_dir: hakyll-test
   override:
     - docker run -d --name hakyll -i rdesfo/hakyll bash
     - docker cp . hakyll:/home/user/app/
@@ -25,7 +25,6 @@ test:
     - docker cp hakyll:/home/user/app/_site
 
 deployment:
-  build_dir: hakyll-test
   production:
     branch: master
     commands:
