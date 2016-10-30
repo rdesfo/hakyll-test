@@ -2,9 +2,6 @@ machine:
   services:
     - docker
 
-general:
-  build_dir: hakyll-test
-
 dependencies:
   override:
     - docker pull rdesfo/hakyll
@@ -23,7 +20,7 @@ test:
     - git submodule init
     - git submodule update
     - cd _site/ && git checkout gh-pages
-    - docker cp hakyll:/home/user/app/_site
+    - docker cp hakyll:/home/user/app/_site .
 
 deployment:
   production:
