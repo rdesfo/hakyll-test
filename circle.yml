@@ -1,8 +1,9 @@
 machine:
   services:
     - docker
-  general:
-    build_dir: hakyll-test
+
+general:
+  build_dir: hakyll-test
 
 dependencies:
   override:
