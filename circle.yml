@@ -28,7 +28,7 @@ deployment:
     commands:
       - git config --global user.email circleci@circleci
       - git config --global user.name CircleCI
-      - cd _site/ && git status
-      - cd _site/ && git add --all
-      - cd _site/ && git commit -m "Update (`date '+%F %T %Z'`) [ci skip]"
-      - cd _site/ && git push origin gh-pages
+      - cd $HOME/hakyll-test/_site/ && git status
+      - cd $HOME/hakyll-test/_site/ && git add --all
+      - cd $HOME/hakyll-test/_site/ && git commit -m "Update (`date '+%F %T %Z'`) [ci skip]"
+      - cd $HOME/hakyll-test/_site/ && git push origin gh-pages
