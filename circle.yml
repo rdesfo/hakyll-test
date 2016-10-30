@@ -1,4 +1,5 @@
 machine:
+  pwd: hakyll-test
   services:
     - docker
 
@@ -7,7 +8,6 @@ dependencies:
     - docker pull rdesfo/hakyll
 
 test:
-  build_dir: hakyll-test
   override:
     - docker run -d --name hakyll -i rdesfo/hakyll bash
     - docker cp . hakyll:/home/user/app/
@@ -25,7 +25,6 @@ test:
 
 deployment:
   production:
-    build_dir: hakyll-test
     branch: master
     commands:
       - git config --global user.email circleci@circleci
