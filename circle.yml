@@ -19,8 +19,8 @@ test:
   post:
     - git submodule init
     - git submodule update
-    - cd _site/ && git checkout gh-pages
-    - docker cp hakyll:/home/user/app/_site .
+    - cd $HOME/hakyll-test/_site && git checkout gh-pages
+    - docker cp hakyll:/home/user/app/_site $HOME/hakyll-test/
 
 deployment:
   production:
