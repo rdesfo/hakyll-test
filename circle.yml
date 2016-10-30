@@ -7,11 +7,15 @@ dependencies:
     - docker pull rdesfo/hakyll
 
 test:
+  build_dir: hakyll-test
   override:
     - docker run -d --name hakyll -i rdesfo/hakyll bash
     - docker cp . hakyll:/home/user/app/
-    - docker exec -u root hakyll chown -R user:user /home/user/app
-    - docker exec -u user hakyll sh -c "cd /home/user/app; stack build; stack exec -- site build"
+# <https://discuss.circleci.com/t/docker-1-10-0-is-available-beta/2100/52>
+# - docker exec -u root hakyll chown -R user:user /home/user/app
+# - docker exec -u user hakyll sh -c "cd /home/user/app; stack build; stack exec -- site build"
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hakyll)" -- bash -c "chown -R user:user /home/user/app"
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hakyll)" -- su user - bash -c "export LANG='C.UTF-8'; cd /home/user/app; stack build; stack exec -- site build"
 
   post:
     - git submodule init
@@ -21,6 +25,7 @@ test:
 
 deployment:
   production:
+    build_dir: hakyll-test
     branch: master
     commands:
       - git config --global user.email circleci@circleci
