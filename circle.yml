@@ -17,8 +17,8 @@ test:
     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hakyll)" -- su user - bash -c "export LANG='C.UTF-8'; cd /home/user/app; stack build; stack exec -- site build"
 
   post:
-    - git submodule init
-    - git submodule update
+    - cd $HOME/hakyll-test && git submodule init
+    - cd cd $HOME/hakyll-test && git submodule update
     - cd $HOME/hakyll-test/_site && git checkout gh-pages
     - docker cp hakyll:/home/user/app/_site $HOME/hakyll-test/
 
