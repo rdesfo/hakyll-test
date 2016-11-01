@@ -19,7 +19,7 @@ test:
   post:
     - cd $HOME/hakyll-test && git submodule init
     - cd $HOME/hakyll-test && git submodule update
-    - cd $HOME/hakyll-test/_site && git checkout gh-pages
+#    - cd $HOME/hakyll-test/_site && git checkout gh-pages
     - docker cp hakyll:/home/user/app/_site $HOME/hakyll-test/
 
 deployment:
